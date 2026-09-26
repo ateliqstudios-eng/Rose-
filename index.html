@@ -27,7 +27,10 @@
 
   body {
     margin: 0;
-    background: var(--cream);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(192,112,123,0.05), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(58,39,51,0.05), transparent 55%),
+      var(--cream);
     color: var(--ink);
     font-family: 'Work Sans', -apple-system, sans-serif;
     font-weight: 300;
@@ -35,6 +38,18 @@
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     overflow-x: hidden;
+  }
+
+  .progress {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--rose-deep);
+    opacity: 0.55;
+    z-index: 5;
+    transition: width 0.1s linear;
   }
 
   .petals {
@@ -74,6 +89,15 @@
     padding-bottom: 6vh;
     border-bottom: 1px solid var(--cream-deep);
     margin-bottom: 6vh;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 1.1s ease 0.15s forwards;
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero { animation: none; opacity: 1; transform: none; }
   }
 
   .hero .to {
@@ -108,6 +132,10 @@
     line-height: 1.5;
   }
 
+  .letter p.memory {
+    margin-bottom: 2.2em;
+  }
+
   .miss {
     background: var(--cream-deep);
     border-left: 3px solid var(--gold);
@@ -137,10 +165,22 @@
     margin-top: 0.3rem;
   }
 
-  .ask {
+  .divider {
+    display: flex;
+    justify-content: center;
     margin-top: 5vh;
-    padding-top: 5vh;
-    border-top: 1px solid var(--cream-deep);
+  }
+  .divider span {
+    width: 8px;
+    height: 10px;
+    background: var(--rose);
+    opacity: 0.4;
+    border-radius: 0 60% 0 60%;
+    transform: rotate(20deg);
+  }
+
+  .ask {
+    padding-top: 4vh;
     text-align: center;
   }
 
@@ -178,12 +218,24 @@
     outline: 2px solid var(--gold);
     outline-offset: 3px;
   }
+  .cta.pulse {
+    animation: glow 1.6s ease-out 1;
+  }
+  @keyframes glow {
+    0%   { box-shadow: 0 0 0 0 rgba(154,78,91,0.45); }
+    100% { box-shadow: 0 0 0 18px rgba(154,78,91,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta.pulse { animation: none; }
+  }
 
   footer {
     text-align: center;
-    font-size: 0.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
     color: var(--rose-deep);
-    opacity: 0.6;
+    opacity: 0.7;
     margin-top: 4rem;
   }
 
@@ -195,6 +247,7 @@
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
 <div class="petals" aria-hidden="true"></div>
 
 <main>
@@ -222,13 +275,13 @@
 
     <p>I know that's a lot to read all at once, and I'm not trying to dump it on you — I just didn't want to explain any of this and leave out the actual reasons.</p>
 
-    <p>I think about small things more than I probably should — like how shy I was before I finally worked up the nerve to hold your hand.</p>
+    <p class="memory">I think about small things more than I probably should — like how shy I was before I finally worked up the nerve to hold your hand.</p>
 
-    <p>Or you showing up to watch my football game, my cousin picking you up and dropping you back home after with me in the car the whole time, and me celebrating right in front of you like it meant something. It did mean something. It still does.</p>
+    <p class="memory">Or you showing up to watch my football game, my cousin picking you up and dropping you back home after with me in the car the whole time, and me celebrating right in front of you like it meant something. It did mean something. It still does.</p>
 
-    <p>Or that Turkish place we went to the first time we met, and how ridiculous the portions were — we barely made a dent in it.</p>
+    <p class="memory">Or that Turkish place we went to the first time we met, and how ridiculous the portions were — we barely made a dent in it.</p>
 
-    <p>Or the fact that, out of every compliment I've ever gotten, the one that's still stuck with me the most is you telling me I smell good.</p>
+    <p class="memory">Or the fact that, out of every compliment I've ever gotten, the one that's still stuck with me the most is you telling me I smell good.</p>
 
     <p>I'm not the same person you last really knew. I've grown up a lot since then — been through things that changed how I see a lot of it, and I think I've outgrown the version of me you saw. I'm not saying that to be forgiven for it. I just want you to know that if we talk again, you're not talking to that same guy.</p>
 
@@ -240,6 +293,8 @@
     </div>
   </div>
 
+  <div class="divider" aria-hidden="true"><span></span></div>
+
   <div class="ask">
     <h2>Whenever you're ready</h2>
     <p>No pressure, no script. Just say the word.</p>
@@ -248,6 +303,37 @@
 
   <footer>made with a little hope, for you</footer>
 </main>
+
+<script>
+(function(){
+  var cta = document.querySelector('.cta');
+  if (!cta || !('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        cta.classList.add('pulse');
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.6 });
+  obs.observe(cta);
+})();
+</script>
+
+<script>
+(function(){
+  var bar = document.querySelector('.progress');
+  function update(){
+    var h = document.documentElement;
+    var scrollable = h.scrollHeight - h.clientHeight;
+    var pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
 
 <script>
 (function(){
