@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Rose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF5F1;
+    --cream-deep: #F3E7E1;
+    --rose: #C0707B;
+    --rose-deep: #9A4E5B;
+    --plum: #3A2733;
+    --ink: #35262C;
+    --gold: #B98A4C;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+
+  .petals {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    width: 14px;
+    height: 18px;
+    background: var(--rose);
+    opacity: 0.16;
+    border-radius: 0 60% 0 60%;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    from { transform: translateY(-5vh) rotate(0deg); }
+    to   { transform: translateY(105vh) rotate(240deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .petal { animation: none; display: none; }
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 8vh 1.5rem 12vh;
+  }
+
+  .hero {
+    text-align: center;
+    padding-bottom: 6vh;
+    border-bottom: 1px solid var(--cream-deep);
+    margin-bottom: 6vh;
+  }
+
+  .hero .to {
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: var(--rose-deep);
+    margin: 0 0 0.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(3.2rem, 14vw, 5.5rem);
+    color: var(--plum);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .letter p {
+    font-size: 1.08rem;
+    margin: 0 0 1.4em;
+    max-width: 34em;
+  }
+
+  .letter p.lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: var(--plum);
+    line-height: 1.5;
+  }
+
+  .miss {
+    background: var(--cream-deep);
+    border-left: 3px solid var(--gold);
+    padding: 1.6rem 1.8rem;
+    margin: 2.5rem 0;
+    border-radius: 2px;
+  }
+  .miss p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--rose-deep);
+    margin: 0;
+  }
+
+  .sign {
+    margin-top: 3rem;
+  }
+  .sign p {
+    margin: 0;
+  }
+  .sign .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--plum);
+    margin-top: 0.3rem;
+  }
+
+  .ask {
+    margin-top: 5vh;
+    padding-top: 5vh;
+    border-top: 1px solid var(--cream-deep);
+    text-align: center;
+  }
+
+  .ask h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 1.9rem;
+    color: var(--plum);
+    margin: 0 0 0.6rem;
+  }
+
+  .ask p {
+    font-size: 1rem;
+    color: var(--ink);
+    opacity: 0.85;
+    margin: 0 0 2rem;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 0.95rem 2.4rem;
+    background: var(--rose-deep);
+    color: var(--cream);
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .cta:hover {
+    background: var(--plum);
+    transform: translateY(-1px);
+  }
+  .cta:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--rose-deep);
+    opacity: 0.6;
+    margin-top: 4rem;
+  }
+
+  @media (max-width: 480px) {
+    main { padding: 6vh 1.25rem 10vh; }
+    .letter p, .letter p.lede { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" aria-hidden="true"></div>
+
+<main>
+  <div class="hero">
+    <p class="to">for Jordan</p>
+    <h1>Rose</h1>
+  </div>
+
+  <div class="letter">
+    <p class="lede">Hey, Rose.</p>
+
+    <p>I know I just disappeared — without explanation, without a word about why or what for. I just left and let you figure things out on your own, and that's not fair at all, and it's not okay either. I'm not going to dress it up as anything else. I'm sorry.</p>
+
+    <p>Today's the 5th of August, and I've been trying to find your number. I've checked emails, gone through my notes, even tried looking on Snapchat — but I genuinely couldn't find you, and it was driving me crazy.</p>
+
+    <div class="miss">
+      <p>I finally found your number again, and now I have no idea what to say or how to text you. I miss you.</p>
+    </div>
+
+    <p>Truth is, I've had your number for a bit now and I didn't have the nerve to actually send this. I kept writing it and closing the tab. Today's just the day I stopped talking myself out of it.</p>
+
+    <p>Honestly, I've been sitting here for a while trying to figure out how to say the rest of this without messing it up even more. There's no version of this where I explain it away, so I'm not going to try. I'm sorry — not just for going quiet, but for how long I let it stay that way while you were left wondering what happened. I keep typing things out and deleting them because nothing feels like enough, but I'd rather say something real and imperfect than keep saying nothing at all.</p>
+
+    <p>I'm not saying this to excuse anything, because it isn't an excuse — but there was a lot going on that I never told you about. I had ACL surgery. I lost my cousin, someone I grew up with. And you already knew my kitten — I lost her too. I still should have said something instead of disappearing. I just didn't know how, so I didn't do anything at all, and that was on me.</p>
+
+    <p>I know that's a lot to read all at once, and I'm not trying to dump it on you — I just didn't want to explain any of this and leave out the actual reasons.</p>
+
+    <p>I think about small things more than I probably should — like how shy I was before I finally worked up the nerve to hold your hand.</p>
+
+    <p>Or you showing up to watch my football game, my cousin picking you up and dropping you back home after with me in the car the whole time, and me celebrating right in front of you like it meant something. It did mean something. It still does.</p>
+
+    <p>Or that Turkish place we went to the first time we met, and how ridiculous the portions were — we barely made a dent in it.</p>
+
+    <p>Or the fact that, out of every compliment I've ever gotten, the one that's still stuck with me the most is you telling me I smell good.</p>
+
+    <p>I'm not the same person you last really knew. I've grown up a lot since then — been through things that changed how I see a lot of it, and I think I've outgrown the version of me you saw. I'm not saying that to be forgiven for it. I just want you to know that if we talk again, you're not talking to that same guy.</p>
+
+    <p>I don't expect you to drop everything and forgive me. I just want us to speak again — or at least try to.</p>
+
+    <div class="sign">
+      <p>No rush at all. Even just a "hey" back would mean everything.</p>
+      <p class="name">— Abdullah</p>
+    </div>
+  </div>
+
+  <div class="ask">
+    <h2>Whenever you're ready</h2>
+    <p>No pressure, no script. Just say the word.</p>
+    <a class="cta" href="https://wa.me/27780120351" rel="nofollow">Let's talk</a>
+  </div>
+
+  <footer>made with a little hope, for you</footer>
+</main>
+
+<script>
+(function(){
+  var container = document.querySelector('.petals');
+  var count = window.innerWidth < 600 ? 10 : 16;
+  for (var i = 0; i < count; i++) {
+    var p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.animationDuration = (14 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * -20) + 's';
+    p.style.opacity = 0.08 + Math.random() * 0.14;
+    p.style.transform = 'scale(' + (0.6 + Math.random() * 0.8) + ')';
+    container.appendChild(p);
+  }
+})();
+</script>
+
+</body>
+</html>
